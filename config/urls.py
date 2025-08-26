@@ -26,3 +26,27 @@ urlpatterns = [
   path("api/auth/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
   ...
 ]
+
+from django.contrib import admin
+from django.urls import path, include
+from rest_framework import routers
+from apps.waste.views import CollectionRequestViewSet
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+
+router = routers.DefaultRouter()
+router.register(r"collection-requests", CollectionRequestViewSet, basename="collectionrequest")
+# register other viewsets similarly...
+
+urlpatterns = [
+    path("admin/", admin.site.urls),
+    path("api/auth/login/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path("api/auth/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
+    path("api/", include((router.urls, "api"), namespace="api")),
+]
+
+router.register(r"collection-requests", CollectionRequestViewSet, basename="collectionrequest")
+
+from django.conf import settings
+from django.conf.urls.static import static
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
