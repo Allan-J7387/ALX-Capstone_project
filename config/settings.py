@@ -154,7 +154,12 @@ SPECTACULAR_SETTINGS = {
 }
 
 # CORS
-CORS_ALLOWED_ORIGINS = os.getenv.list('CORS_ALLOWED_ORIGINS', default=['http://localhost:3000'])
+CORS_ALLOWED_ORIGINS = os.getenv("CORS_ALLOWED_ORIGINS")
+if CORS_ALLOWED_ORIGINS:
+    CORS_ALLOWED_ORIGINS = CORS_ALLOWED_ORIGINS.split(",")
+else:
+    CORS_ALLOWED_ORIGINS = ["http://localhost:3000"]
+
 
 # Sentry (optional)
 import sentry_sdk
