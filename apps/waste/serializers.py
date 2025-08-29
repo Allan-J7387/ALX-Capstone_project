@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import CollectionRequest, WasteType, IssueReport
 from apps.locations.serializers import AddressSerializer
+from apps.locations.models import Address
 
 class WasteTypeSerializer(serializers.ModelSerializer):
     class Meta:
@@ -9,7 +10,8 @@ class WasteTypeSerializer(serializers.ModelSerializer):
 
 class CollectionRequestSerializer(serializers.ModelSerializer):
     requester = serializers.ReadOnlyField(source="requester.id")
-    address = serializers.PrimaryKeyRelatedField(queryset=None)  # set in view init
+    address = serializers.PrimaryKeyRelatedField(queryset=Address.objects.all())
+
 
     class Meta:
         model = CollectionRequest
