@@ -2,7 +2,7 @@ from django.db import models
 from django.conf import settings
 
 class Address(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.SET_NULL, related_name="addresses")
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.SET_NULL, related_name="location_addresses")
     label = models.CharField(max_length=100, blank=True)
     street = models.CharField(max_length=255)
     city = models.CharField(max_length=128)
