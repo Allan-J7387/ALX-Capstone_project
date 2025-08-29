@@ -2,6 +2,7 @@ from django.conf import settings
 from django.db import models
 from django.utils import timezone
 import uuid
+from apps.locations.serializers import AddressSerializer
 
 User = settings.AUTH_USER_MODEL
 
@@ -91,3 +92,10 @@ class RouteStop(models.Model):
     pickup = models.ForeignKey(PickupRequest, on_delete=models.SET_NULL, null=True, blank=True)
     sequence = models.IntegerField(default=0)
     eta = models.DateTimeField(null=True, blank=True)
+
+class CollectionRequestSerializer(serializers.ModelSerializer):
+    address = AddressSerializer(read_only=True)
+
+    class Meta:
+        model = CollectionRequest
+        fields = "__all__"
