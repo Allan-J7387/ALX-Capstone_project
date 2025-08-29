@@ -32,3 +32,7 @@ class CollectionRequestViewSet(viewsets.ModelViewSet):
         pickup.status = new_status
         pickup.save()
         return Response(self.get_serializer(pickup).data)
+
+class AddressViewSet(viewsets.ModelViewSet):
+    queryset = Address.objects.all()
+    serializer_class = AddressSerializer
