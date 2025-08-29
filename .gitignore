@@ -1,0 +1,22 @@
+# Environments
+.venv/
+venv/
+env/
+ENV/
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyc
+# OS/editor junk
+.DS_Store
+*.swp
+# Django
+db.sqlite3
+/staticfiles/
+media/
+# Coverage / test
+htmlcov/
+.coverage*
+.pytest_cache/
+# Node (if any frontend later)
+node_modules/
