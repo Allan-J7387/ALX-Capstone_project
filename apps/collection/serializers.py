@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from .models import CollectionRequest
 from .models import PickupRequest, Address, Driver, Vehicle
 
 class AddressSerializer(serializers.ModelSerializer):
@@ -23,3 +24,10 @@ class PickupRequestSerializer(serializers.ModelSerializer):
         validated_data['address'] = address
         validated_data['customer'] = user
         return super().create(validated_data)
+
+class CollectionRequestSerializer(serializers.ModelSerializer):
+    address = serializers.PrimaryKeyRelatedField(queryset=Address.objects.all())
+
+    class Meta:
+        model = CollectionRequest
+        fields = "__all__"

@@ -94,7 +94,6 @@ class RouteStop(models.Model):
     eta = models.DateTimeField(null=True, blank=True)
 
 from rest_framework import serializers
-from .models import CollectionRequest
 from apps.locations.models import Address
 
 class CollectionRequestSerializer(serializers.ModelSerializer):
