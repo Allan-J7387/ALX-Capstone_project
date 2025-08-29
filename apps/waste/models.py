@@ -9,9 +9,6 @@ class CollectionRequest(models.Model):
     status = models.CharField(max_length=20, default="PENDING")
     created_at = models.DateTimeField(auto_now_add=True)
 
-from django.db import models
-from django.conf import settings
-
 class WasteType(models.Model):
     name = models.CharField(max_length=80)
     description = models.TextField(blank=True)

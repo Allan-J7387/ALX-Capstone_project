@@ -37,8 +37,7 @@ INSTALLED_APPS = [
     "apps.routing",
     "apps.tracking",
     "apps.notifications",
-    "apps.analytics",
-    'apps.collection',
+    "apps.collection",
 ]
 
 MIDDLEWARE = [
