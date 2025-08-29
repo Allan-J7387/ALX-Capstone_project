@@ -23,7 +23,6 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
 router = routers.DefaultRouter()
-#From apps.collection
 router.register(
     r"collection-requests",
     CollectionRequestViewSet,
@@ -42,12 +41,6 @@ urlpatterns = [
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
 ]
-#From apps.collection
-router.register(
-    r"waste-collection-requests",
-    WasteCollectionRequestViewSet,
-    basename="wastecollectionrequest"
-)
 
 from django.conf import settings
 from django.conf.urls.static import static
