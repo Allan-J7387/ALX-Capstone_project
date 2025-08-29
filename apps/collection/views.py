@@ -1,7 +1,7 @@
 from rest_framework import viewsets, permissions, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from .models import CollecionRequest, Address
+from .models import CollectionRequest, Address
 from .serializers import CollectiontRequestSerializer, AddressSerializer
 
 class IsCustomer(permissions.BasePermission):
