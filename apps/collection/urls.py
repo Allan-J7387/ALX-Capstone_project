@@ -1,7 +1,11 @@
+from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import PickupRequestViewSet
+from .views import CollectionRequestViewSet, AddressViewSet
 
 router = DefaultRouter()
-router.register(r'pickups', PickupRequestViewSet, basename='pickup')
+router.register(r'collection-requests', CollectionRequestViewSet, basename='collectionrequest')
+router.register(r'addresses', AddressViewSet, basename='address')
 
-urlpatterns = router.urls
+urlpatterns = [
+    path('', include(router.urls)),
+]
