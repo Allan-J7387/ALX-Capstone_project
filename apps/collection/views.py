@@ -2,7 +2,8 @@ from rest_framework import viewsets, permissions, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from .models import CollectionRequest, Address
-from .serializers import CollectiontRequestSerializer, AddressSerializer
+from .serializers import CollectionRequestSerializer, AddressSerializer
+
 
 class IsCustomer(permissions.BasePermission):
     def has_permission(self, request, view):
