@@ -319,3 +319,4 @@ django-environ>=0.11.2
 graphviz
 grep python-dotenv
 grep psycopg
+Pillow
