@@ -315,5 +315,5 @@ python-dotenv
 Pillow
 celery[redis]
 django-cors-headers
-django-environ
+django-environ>=0.11.2
 graphviz
