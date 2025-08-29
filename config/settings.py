@@ -160,14 +160,6 @@ if CORS_ALLOWED_ORIGINS:
 else:
     CORS_ALLOWED_ORIGINS = ["http://localhost:3000"]
 
-
-# Sentry (optional)
-import sentry_sdk
-from sentry_sdk.integrations.django import DjangoIntegration
-SENTRY_DSN = env('SENTRY_DSN', default=None)
-if SENTRY_DSN:
-    sentry_sdk.init(dsn=SENTRY_DSN, integrations=[DjangoIntegration()])
-
 from datetime import timedelta
 SIMPLE_JWT = {
   "ACCESS_TOKEN_LIFETIME": timedelta(hours=2),
