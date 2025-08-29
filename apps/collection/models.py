@@ -8,14 +8,16 @@ User = settings.AUTH_USER_MODEL
 
 class Address(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    user = models.ForeignKey(User, related_name='addresses', on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='collection_addresses'
+    )
     label = models.CharField(max_length=255, blank=True)  # "Home", "Office"
     line1 = models.CharField(max_length=255)
     line2 = models.CharField(max_length=255, blank=True)
     city = models.CharField(max_length=128)
     postal_code = models.CharField(max_length=32, blank=True)
-    lat = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
-    lng = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
