@@ -20,3 +20,5 @@ htmlcov/
 .pytest_cache/
 # Node (if any frontend later)
 node_modules/
+
+.env

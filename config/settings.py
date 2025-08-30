@@ -18,8 +18,16 @@ load_dotenv(BASE_DIR / ".env")
 
 DEBUG = os.getenv("DEBUG", "False").lower() in ("1", "true", "yes")
 SECRET_KEY = os.getenv("SECRET_KEY", "change-me")
-DATABASE_URL = os.getenv("DATABASE_URL", f"sqlite:///{BASE_DIR / 'db.sqlite3'}")
-
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.getenv("DB_NAME", "postgres"),
+        "USER": os.getenv("DB_USER", "postgres"),
+        "PASSWORD": os.getenv("DB_PASSWORD", ""),
+        "HOST": os.getenv("DB_HOST", "localhost"),
+        "PORT": os.getenv("DB_PORT", "5432"),
+    }
+}
 # Application definition
 
 INSTALLED_APPS = [
@@ -128,6 +136,17 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+ALLOWED_HOSTS = ['*', '127.0.0.1:8000']
+
+STATIC_URL = "/static/"
+
+# Directory where collectstatic will put all files (for production)
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+
+# Extra places Django will look for static files
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
 
 
 # Default primary key field type
