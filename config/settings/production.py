@@ -3,7 +3,7 @@ Production settings for Waste Collection & Management System.
 Optimized for production deployment with security and performance features.
 """
 from .base import *
-import dj_database_url
+# import dj_database_url
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
