@@ -13,7 +13,7 @@ RAILWAY_STATIC_URL = os.getenv('RAILWAY_STATIC_URL')
 RAILWAY_PUBLIC_DOMAIN = os.getenv('RAILWAY_PUBLIC_DOMAIN')
 
 # Allowed hosts - Railway specific configuration
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['waste-manager.up.railway.app']
 if RAILWAY_PUBLIC_DOMAIN:
     ALLOWED_HOSTS.append(RAILWAY_PUBLIC_DOMAIN)
 
@@ -104,7 +104,7 @@ CSRF_COOKIE_HTTPONLY = True
 CSRF_COOKIE_SAMESITE = 'Strict'
 
 # CSRF trusted origins for Railway
-CSRF_TRUSTED_ORIGINS = []
+CSRF_TRUSTED_ORIGINS = ['https://waste-manager.up.railway.app']
 if RAILWAY_PUBLIC_DOMAIN:
     CSRF_TRUSTED_ORIGINS.append(f"https://{RAILWAY_PUBLIC_DOMAIN}")
 
