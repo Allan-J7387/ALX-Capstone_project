@@ -8,7 +8,7 @@ from .base import *
 DEBUG = True
 
 # Allowed hosts for development
-ALLOWED_HOSTS = ['*', '127.0.0.1', 'localhost', '0.0.0.0']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '0.0.0.0']
 
 # Development database - can use SQLite for quick setup
 # Uncomment below to use SQLite instead of PostgreSQL for development
@@ -19,27 +19,19 @@ ALLOWED_HOSTS = ['*', '127.0.0.1', 'localhost', '0.0.0.0']
 #     }
 # }
 
-# CORS settings for development - allow all origins
-CORS_ALLOW_ALL_ORIGINS = True
+# CORS settings for development - allow specific origins
+CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
     "http://localhost:8080",
     "http://127.0.0.1:8080",
+    "http://localhost:5173",  # Vite default
+    "http://127.0.0.1:5173",  # Vite default
 ]
 
-# Development-specific middleware
-MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-]
+# For development only - allow all origins if needed
+# CORS_ALLOW_ALL_ORIGINS = True
 
 # Add Django Debug Toolbar for development (if installed)
 try:
@@ -118,7 +110,7 @@ SIMPLE_JWT.update({
 })
 
 # Static files configuration for development
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 # Security settings (relaxed for development)
 SECURE_SSL_REDIRECT = False
@@ -143,3 +135,4 @@ SPECTACULAR_SETTINGS.update({
 # File upload settings for development
 FILE_UPLOAD_MAX_MEMORY_SIZE = 10485760  # 10MB for development
 DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760  # 10MB for development
+
