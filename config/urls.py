@@ -14,30 +14,30 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from django.contrib import admin
 from django.urls import path, include
-from rest_framework import routers
-from apps.waste.views import CollectionRequestViewSet
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
-router = routers.DefaultRouter()
-router.register(
-    r"collection-requests",
-    CollectionRequestViewSet,
-    basename="collectionrequest"
-)
-
-# register other viewsets similarly...
-
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("api/auth/login/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
-    path("api/auth/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
-    path("api/", include((router.urls, "api"), namespace="api")),
-     path('api/v1/', include(router.urls)),
-    # docs
+    
+    # Authentication endpoints
+    path("api/auth/", include("apps.accounts.urls")),
+    
+    # App endpoints
+    path("api/accounts/", include("apps.accounts.urls")),
+    path("api/locations/", include("apps.locations.urls")),
+    path("api/waste/", include("apps.waste.urls")),
+    path("api/fleet/", include("apps.fleet.urls")),
+    path("api/routing/", include("apps.routing.urls")),
+    path("api/tracking/", include("apps.tracking.urls")),
+    path("api/notifications/", include("apps.notifications.urls")),
+    path("api/collection/", include("apps.collection.urls")),
+    path("api/analytics/", include("apps.analytics.urls")),
+    path("api/billing/", include("apps.billing.urls")),
+    
+    # API Documentation
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
 ]

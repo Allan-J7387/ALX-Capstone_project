@@ -18,16 +18,6 @@ load_dotenv(BASE_DIR / ".env")
 
 DEBUG = os.getenv("DEBUG", "False").lower() in ("1", "true", "yes")
 SECRET_KEY = os.getenv("SECRET_KEY", "change-me")
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("DB_NAME", "postgres"),
-        "USER": os.getenv("DB_USER", "postgres"),
-        "PASSWORD": os.getenv("DB_PASSWORD", ""),
-        "HOST": os.getenv("DB_HOST", "localhost"),
-        "PORT": os.getenv("DB_PORT", "5432"),
-    }
-}
 # Application definition
 
 INSTALLED_APPS = [
@@ -37,6 +27,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework_simplejwt',
+    'drf_spectacular',
+    'corsheaders',
     #local apps
     "apps.accounts",
     "apps.locations",
@@ -46,6 +40,8 @@ INSTALLED_APPS = [
     "apps.tracking",
     "apps.notifications",
     "apps.collection",
+    "apps.analytics",
+    "apps.billing",
 ]
 
 MIDDLEWARE = [
@@ -84,15 +80,14 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-# Database - Postgres example
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'waste_db',
-        'USER': 'waste_user',
-        'PASSWORD': 'waste_pass',
-        'HOST': 'localhost',
-        'PORT': '5432',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.getenv("DB_NAME", "waste_db"),
+        "USER": os.getenv("DB_USER", "waste_user"),
+        "PASSWORD": os.getenv("DB_PASSWORD", "waste_pass"),
+        "HOST": os.getenv("DB_HOST", "localhost"),
+        "PORT": os.getenv("DB_PORT", "5432"),
     }
 }
 
@@ -132,21 +127,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 ALLOWED_HOSTS = ['*', '127.0.0.1:8000']
 
 STATIC_URL = "/static/"
-
-# Directory where collectstatic will put all files (for production)
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-
-# Extra places Django will look for static files
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
 
 # Default primary key field type
@@ -179,24 +169,8 @@ else:
 
 from datetime import timedelta
 SIMPLE_JWT = {
-  "ACCESS_TOKEN_LIFETIME": timedelta(hours=2),
-  "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
-  "AUTH_HEADER_TYPES": ("Bearer",),
-}
-
-MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR / "media"
-
-from datetime import timedelta
-SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
-    'SIGNING_KEY': os.getenv('SIMPLE_JWT_SECRET_KEY', default=SECRET_KEY),
-}
-
-from datetime import timedelta
-SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=2),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+    'AUTH_HEADER_TYPES': ('Bearer',),
     'SIGNING_KEY': os.getenv('SIMPLE_JWT_SECRET_KEY', default=SECRET_KEY),
 }

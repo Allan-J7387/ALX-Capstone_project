@@ -2,7 +2,6 @@ from django.conf import settings
 from django.db import models
 from django.utils import timezone
 import uuid
-from apps.locations.serializers import AddressSerializer
 
 User = settings.AUTH_USER_MODEL
 
@@ -95,19 +94,4 @@ class RouteStop(models.Model):
     sequence = models.IntegerField(default=0)
     eta = models.DateTimeField(null=True, blank=True)
 
-from django.db import models
-from apps.locations.models import Address
-
-class CollectionRequest(models.Model):
-    waste_type = models.CharField(max_length=100)
-    address = models.ForeignKey(Address, on_delete=models.CASCADE, related_name="collection_requests")
-    scheduled_date = models.DateField()
-    status = models.CharField(
-        max_length=50,
-        choices=[("pending", "Pending"), ("in_progress", "In Progress"), ("completed", "Completed")],
-        default="pending"
-    )
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"{self.waste_type} - {self.status}"
+# Remove duplicate CollectionRequest model - using the one from waste app instead
