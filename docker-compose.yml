@@ -11,10 +11,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
-  redis:
-    image: redis:7
-    ports:
-      - "6379:6379"
+
 
   web:
     build: .
@@ -31,7 +28,7 @@ services:
       - DJANGO_ALLOWED_HOSTS=localhost,127.0.0.1
     depends_on:
       - db
-      - redis
+     
 
 volumes:
   postgres_data:
