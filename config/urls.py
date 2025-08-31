@@ -16,11 +16,37 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
+from django.http import JsonResponse
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
+def api_root(request):
+    """API root endpoint that lists available endpoints"""
+    return JsonResponse({
+        'message': 'Waste Collection & Management System API',
+        'version': '1.0',
+        'endpoints': {
+            'authentication': '/api/auth/',
+            'accounts': '/api/accounts/',
+            'locations': '/api/locations/',
+            'waste': '/api/waste/',
+            'fleet': '/api/fleet/',
+            'routing': '/api/routing/',
+            'tracking': '/api/tracking/',
+            'notifications': '/api/notifications/',
+            'collection': '/api/collection/',
+            'analytics': '/api/analytics/',
+            'billing': '/api/billing/',
+            'documentation': '/api/docs/',
+            'schema': '/api/schema/'
+        }
+    })
+
 urlpatterns = [
     path("admin/", admin.site.urls),
+    
+    # API root endpoint
+    path("api/", api_root, name='api-root'),
     
     # Authentication endpoints
     path("api/auth/", include("apps.accounts.urls")),
