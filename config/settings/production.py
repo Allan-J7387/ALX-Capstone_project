@@ -5,18 +5,17 @@ Optimized for production deployment with security and performance features.
 from .base import *
 # import dj_database_url
 
-# SECURITY WARNING: don't run with debug turned on in production!
+# SECURITY WARNING
 DEBUG = False
 
-# Allowed hosts - must be configured for production
+# Allowed hosts 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',') if os.getenv('ALLOWED_HOSTS') else []
 
 # Production database configuration
-# Support for DATABASE_URL environment variable (Heroku, Railway, etc.)
 if os.getenv('DATABASE_URL'):
     DATABASES['default'] = dj_database_url.parse(os.getenv('DATABASE_URL'))
 else:
-    # Use environment variables for database configuration
+    
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
